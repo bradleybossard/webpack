@@ -4063,8 +4063,14 @@ declare interface EnableLibraryPluginOptions {
 	additionalApply?: () => void;
 }
 declare class EnableWasmLoadingPlugin {
-	constructor(type: string);
-	type: string;
+       constructor(
+               type:
+                       | string
+                       | WebpackPluginInstance
+                       | WebpackPluginFunction
+                       | (WebpackPluginInstance | WebpackPluginFunction | string)[]
+       );
+       type: string | WebpackPluginInstance | WebpackPluginFunction | (WebpackPluginInstance | WebpackPluginFunction | string)[];
 
 	/**
 	 * Apply the plugin
@@ -4169,7 +4175,7 @@ declare interface EntryDescription {
 	/**
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
-	wasmLoading?: string | false;
+        wasmLoading?: string | WebpackPluginInstance | WebpackPluginFunction | false;
 }
 
 /**
@@ -4229,7 +4235,7 @@ declare interface EntryDescriptionNormalized {
 	/**
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
-	wasmLoading?: string | false;
+       wasmLoading?: string | WebpackPluginInstance | WebpackPluginFunction | false;
 }
 type EntryItem = string | string[];
 type EntryNormalized =
@@ -11538,7 +11544,7 @@ declare interface Output {
 	/**
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
-	wasmLoading?: string | false;
+       wasmLoading?: string | WebpackPluginInstance | WebpackPluginFunction | false;
 
 	/**
 	 * The filename of WebAssembly modules as relative path inside the 'output.path' directory.
@@ -11558,7 +11564,7 @@ declare interface Output {
 	/**
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
-	workerWasmLoading?: string | false;
+       workerWasmLoading?: string | WebpackPluginInstance | WebpackPluginFunction | false;
 }
 declare interface OutputFileSystem {
 	writeFile: WriteFile;
@@ -11817,7 +11823,7 @@ declare interface OutputNormalized {
 	/**
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
-	wasmLoading?: string | false;
+       wasmLoading?: string | WebpackPluginInstance | WebpackPluginFunction | false;
 
 	/**
 	 * The filename of WebAssembly modules as relative path inside the 'output.path' directory.
@@ -11837,7 +11843,7 @@ declare interface OutputNormalized {
 	/**
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
-	workerWasmLoading?: string | false;
+       workerWasmLoading?: string | WebpackPluginInstance | WebpackPluginFunction | false;
 }
 declare interface ParameterizedComparator<TArg extends object, T> {
 	(tArg: TArg): Comparator<T>;

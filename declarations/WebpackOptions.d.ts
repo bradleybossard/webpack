@@ -155,7 +155,11 @@ export type EntryRuntime = false | string;
 /**
  * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
  */
-export type WasmLoading = false | WasmLoadingType;
+export type WasmLoading =
+       | false
+       | WasmLoadingType
+       | WebpackPluginInstance
+       | WebpackPluginFunction;
 /**
  * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
  */
