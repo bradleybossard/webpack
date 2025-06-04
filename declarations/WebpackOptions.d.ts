@@ -156,14 +156,21 @@ export type EntryRuntime = false | string;
  * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
  */
 export type WasmLoading =
-       | false
-       | WasmLoadingType
-       | WebpackPluginInstance
-       | WebpackPluginFunction;
+	| false
+	| WasmLoadingType
+	| WebpackPluginInstance
+	| WebpackPluginFunction;
 /**
  * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
  */
 export type WasmLoadingType = ("fetch" | "async-node") | string;
+/**
+ * Function acting as plugin.
+ */
+export type WebpackPluginFunction = (
+	this: import("../lib/Compiler"),
+	compiler: import("../lib/Compiler")
+) => void;
 /**
  * An entry point without name.
  */
@@ -424,13 +431,6 @@ export type Name = string;
  * Include polyfills or mocks for various node stuff.
  */
 export type Node = false | NodeOptions;
-/**
- * Function acting as plugin.
- */
-export type WebpackPluginFunction = (
-	this: import("../lib/Compiler"),
-	compiler: import("../lib/Compiler")
-) => void;
 /**
  * Create an additional chunk which contains only the webpack runtime and chunk hash maps.
  */
@@ -1272,6 +1272,16 @@ export interface LibraryCustomUmdObject {
 	root?: string[] | string;
 }
 /**
+ * Plugin instance.
+ */
+export interface WebpackPluginInstance {
+	/**
+	 * The run point of the plugin, required method.
+	 */
+	apply: (compiler: import("../lib/Compiler")) => void;
+	[k: string]: any;
+}
+/**
  * Enable presets of externals for specific targets.
  */
 export interface ExternalsPresets {
@@ -1851,16 +1861,6 @@ export interface Optimization {
 	 * Figure out which exports are used by modules to mangle export names, omit unused exports and generate more efficient code (true: analyse used exports for each runtime, "global": analyse exports globally for all runtimes combined).
 	 */
 	usedExports?: "global" | boolean;
-}
-/**
- * Plugin instance.
- */
-export interface WebpackPluginInstance {
-	/**
-	 * The run point of the plugin, required method.
-	 */
-	apply: (compiler: import("../lib/Compiler")) => void;
-	[k: string]: any;
 }
 /**
  * Options object for splitting chunks into smaller chunks.
