@@ -5696,6 +5696,12 @@
         },
         {
           "$ref": "#/definitions/WasmLoadingType"
+        },
+        {
+          "$ref": "#/definitions/WebpackPluginInstance"
+        },
+        {
+          "$ref": "#/definitions/WebpackPluginFunction"
         }
       ]
     },
